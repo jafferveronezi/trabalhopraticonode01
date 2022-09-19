@@ -82,7 +82,7 @@ apiRouter.post(endpoint + 'produtos', express.json(), (req, res) => {
         .insert({
             descricao: req.body.descricao,
             valor: req.body.valor,
-            marca: req.marca
+            marca: req.body.marca
         }, ['id'])
         .then((result) => {
             let usuario = result[0]
