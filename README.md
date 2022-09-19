@@ -9,6 +9,8 @@ https://appnodejaffer.herokuapp.com/app/
 
 https://appnodejaffer.herokuapp.com/api/produtos
 
+https://appnodejaffer.herokuapp.com/api/produtos/1
+
 comandos git:
 heroku login
 git add .
