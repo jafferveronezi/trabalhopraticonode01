@@ -54,7 +54,7 @@ apiRouter.get(endpoint + 'produtos/:id', (req, res) => {
         let produto = results[0]
         res.status(200).json(produto)
        } else {
-        res.status(404).json({message: `Produto nao encotnrado`})
+        res.status(404).json({message: `Produto nao encontrado`})
        }
     })
     .catch(err => {
@@ -98,33 +98,71 @@ apiRouter.post(endpoint + 'produtos', express.json(), (req, res) => {
 })
 
 apiRouter.delete(endpoint + 'produtos/:id', (req, res) => {
-    let id = parseInt(req.params.id)
-    let idx = lista_produtos.produtos.findIndex (elem => elem.id === id)
+    // let id = parseInt(req.params.id)
+    // let idx = lista_produtos.produtos.findIndex (elem => elem.id === id)
 
-    if (idx == -1) {
-        res.status(404).json ({message: `Produto nao encontrado. ID: ${id}`})
-    } else {
-       lista_produtos.splice(idx, 1)
+    // if (idx == -1) {
+    //     res.status(404).json ({message: `Produto nao encontrado. ID: ${id}`})
+    // } else {
+    //    lista_produtos.splice(idx, 1)
 
-        res.status(201).json({
-            message: ` Produto deletado com sucesso. ID: ${idx}`
+    //     res.status(201).json({
+    //         message: ` Produto deletado com sucesso. ID: ${idx}`
+    //     })
+    // }
+
+    if (req.body) {
+
+        knex ('produto')
+        .delete({
+            descricao: req.body.descricao,
+            valor: req.body.valor,
+            marca: req.body.marca
+        }, ['id'])
+        .then((result) => {
+            let usuario = result[0]
+            res.status(200).json({"id": usuario.id })
+        return
+        })
+        .catch(err => {
+            res.status(500).json({
+            message: 'Erro ao deletar usuario - ' + err.message })
         })
     }
 })
 
 apiRouter.put(endpoint + 'produtos/:id', (req, res) => {
-    let id = parseInt(req.params.id)
-    let idx = lista_produtos.produtos.findIndex (elem => elem.id === id)
+    // let id = parseInt(req.params.id)
+    // let idx = lista_produtos.produtos.findIndex (elem => elem.id === id)
 
-    if (idx == -1) {
-        res.status(404).json ({message: `Produto nao encontrado. ID: ${id}`})
-    } else {
-        let item = lista_produtos.produtos[idx]
-        item.descricao = req.body.descricao
-        item.valor = req.body.valor
-        item.marca = req.body.marca
+    // if (idx == -1) {
+    //     res.status(404).json ({message: `Produto nao encontrado. ID: ${id}`})
+    // } else {
+    //     let item = lista_produtos.produtos[idx]
+    //     item.descricao = req.body.descricao
+    //     item.valor = req.body.valor
+    //     item.marca = req.body.marca
 
-        res.status(201).json({message: `Produto alterado. ID: ${item.id}`})
+    //     res.status(201).json({message: `Produto alterado. ID: ${item.id}`})
+    // }
+
+    if (req.body) {
+
+        knex ('produto')
+        .put({
+            descricao: req.body.descricao,
+            valor: req.body.valor,
+            marca: req.body.marca
+        }, ['id'])
+        .then((result) => {
+            let usuario = result[0]
+            res.status(200).json({"id": usuario.id })
+        return
+        })
+        .catch(err => {
+            res.status(500).json({
+            message: 'Erro ao alterar usuario - ' + err.message })
+        })
     }
 })
 
