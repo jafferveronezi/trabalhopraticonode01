@@ -85,19 +85,19 @@ apiRouter.post(endpoint + 'produtos', express.json(), (req, res) => {
             marca: req.body.marca
         }, ['id'])
         .then((result) => {
-            let usuario = result[0]
-            res.status(200).json({"id": usuario.id })
+            let produto = result[0]
+            res.status(200).json({"id": produto.id })
         return
         })
         .catch(err => {
             res.status(500).json({
-            message: 'Erro ao registrar usuario - ' + err.message })
+            message: 'Erro ao registrar produto - ' + err.message })
         })
     }
 
 })
 
-apiRouter.delete(endpoint + 'produtos/:id', (req, res) => {
+apiRouter.delete(endpoint + 'produtos/:idx', express.json(), (req, res) => {
     // let id = parseInt(req.params.id)
     // let idx = lista_produtos.produtos.findIndex (elem => elem.id === id)
 
@@ -112,26 +112,23 @@ apiRouter.delete(endpoint + 'produtos/:id', (req, res) => {
     // }
 
     if (req.body) {
-
+        let  produto = req.params.idx
         knex ('produto')
-        .delete({
-            descricao: req.body.descricao,
-            valor: req.body.valor,
-            marca: req.body.marca
-        }, ['id'])
-        .then((result) => {
-            let usuario = result[0]
-            res.status(200).json({"id": usuario.id })
-        return
-        })
-        .catch(err => {
-            res.status(500).json({
-            message: 'Erro ao deletar usuario - ' + err.message })
-        })
+            .del(['id'])
+            .where('id', produto)
+            .then((result) => {
+                // let produto = result[0]
+                res.status(200).json({"id": produto })
+            })
+            .catch(err => {
+                res.status(500).json({
+                message: 'Erro ao deletar o produto - ' + err.message })
+            })
+            return
     }
 })
 
-apiRouter.put(endpoint + 'produtos/:id', (req, res) => {
+apiRouter.put(endpoint + 'produtos/:idx', express.json(), (req, res) => {
     // let id = parseInt(req.params.id)
     // let idx = lista_produtos.produtos.findIndex (elem => elem.id === id)
 
@@ -146,23 +143,25 @@ apiRouter.put(endpoint + 'produtos/:id', (req, res) => {
     //     res.status(201).json({message: `Produto alterado. ID: ${item.id}`})
     // }
 
+    
     if (req.body) {
-
+        let  produto = req.params.idx
         knex ('produto')
-        .put({
-            descricao: req.body.descricao,
-            valor: req.body.valor,
-            marca: req.body.marca
-        }, ['id'])
-        .then((result) => {
-            let usuario = result[0]
-            res.status(200).json({"id": usuario.id })
-        return
-        })
-        .catch(err => {
-            res.status(500).json({
-            message: 'Erro ao alterar usuario - ' + err.message })
-        })
+            .update({
+                descricao: req.body.descricao,
+                valor: req.body.valor,
+                marca: req.body.marca
+            })
+            .where('id', produto)
+            .then((result) => {
+                // let produto = result[0]
+                res.status(200).json({"id": produto })
+            })
+            .catch(err => {
+                res.status(500).json({
+                message: 'Erro ao atualizar o produto - ' + err.message })
+            })
+            return
     }
 })
 
