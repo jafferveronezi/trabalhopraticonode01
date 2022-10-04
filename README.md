@@ -1,15 +1,15 @@
-# trabalhopraticonode01
-trabalhopraticonode01
+# trabalhopraticonode02
+trabalhopraticonode02
 
 este trabalho esta postado no heroku:
 
 segue os links:
 
-https://appnodejaffer.herokuapp.com/app/
+https://appnodejaffer02.herokuapp.com/app/
 
-https://appnodejaffer.herokuapp.com/api/produtos
+https://appnodejaffer02.herokuapp.com/api/produtos
 
-https://appnodejaffer.herokuapp.com/api/produtos/1
+https://appnodejaffer02.herokuapp.com/api/produtos/1
 
 comandos git:
 heroku login
@@ -22,6 +22,6 @@ git add .
 git commit -m "deploy heroku" 
 git push heroku master
 
-testes locais"
+testes locais
 
 nodemon server.js
