@@ -22,6 +22,6 @@ git add .
 git commit -m "deploy heroku" 
 git push heroku master
 
-testes locais"
+testes locais:
 
 nodemon server.js
